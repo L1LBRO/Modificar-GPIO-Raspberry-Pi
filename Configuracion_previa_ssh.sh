@@ -28,7 +28,7 @@ vIpRaspberry=$1
 vPassp=$2
 vUser=$3
 vGpio=$4
-vRaspberryPass=$5 
+vRaspPass=$5 
 
 # Generación de claves ssh
 echo ""
@@ -65,7 +65,7 @@ sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
 
 # Usar sshpass para copiar la clave SSH con la contraseña que se pasa como argumento
 echo "Enviando la clave SSH con ssh-copy-id..."
-sshpass -p "$vRaspberryPass" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
+sshpass -p "$vRaspPass" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
 
 if [ $? -eq 0 ]; then
     echo "Claves enviadas correctamente."
@@ -111,4 +111,4 @@ else
 fi
 
 # Llamada al script Python para modificar el GPIO
-curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vUser $vGpio $vKey_Name
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - "$vIpRaspberry" "$vPassp" "$vRaspPass" "$vUser" "$vGpio"
