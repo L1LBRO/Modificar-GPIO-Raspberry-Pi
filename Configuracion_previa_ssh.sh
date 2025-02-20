@@ -40,7 +40,7 @@
   vKey_Name="${HOME}/.ssh/id_rsa"
   
   if [ -f "$vKey_Name" ]; then
-    echo "La clave SSH ya existe en $vKey_Name."
+    rm -f $vKey_Name
   exit 1
   fi
   
