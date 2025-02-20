@@ -63,7 +63,7 @@
   sudo apt install sshpass -y 
 
   
-  sudo sshpass -p $vPassp ssh-copy-id -i $vKey_Name $vUser@$vIpRaspberry
+  sudo sshpass -p "$vPassp" ssh-copy-id -i "$vKey_Name.pub" "$vUser@$vIpRaspberry"
   
   if [ $? -eq 0 ]; then
     echo "Claves enviadas correctamente."
