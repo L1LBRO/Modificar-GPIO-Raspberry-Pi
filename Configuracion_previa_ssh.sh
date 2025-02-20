@@ -61,6 +61,9 @@ sudo apt install sshpass -y
 # Asegurarse de que los permisos de la clave pública son correctos
 sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
 
+echo "Realizando prueba de conexión SSH sin contraseña..."
+sshpass -p "$vPassp" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$vUser@$vIpRaspberry" exit
+
 # Usar sshpass para copiar la clave SSH sin la necesidad de intervención manual
 sudo sshpass -p "$vPassp" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
 
