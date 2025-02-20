@@ -20,7 +20,7 @@
     echo ""
 
   
-  if [ $# -ne 3 ]; then
+  if [ $# -ne 4 ]; then
     echo "Uso: $0 <IP> <Passphrase> <Usuario>"
   exit 1
   fi
@@ -106,7 +106,7 @@
   exit 1
   fi
   
-  curl -sL 
+  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - 
     
 
 
