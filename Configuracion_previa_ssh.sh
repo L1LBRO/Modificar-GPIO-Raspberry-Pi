@@ -44,8 +44,7 @@
   exit 1
   fi
 
-  sudo chmod 600 vKey_Name
-  
+
   ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$PASSPHRASE"
 
   if [ $? -eq 0 ]; then
@@ -55,6 +54,7 @@
   exit 1
   fi
 
+  sudo chmod 600 $vKey_Name
 
   echo ""
   echo " Enviando las claves SSH a la máquina victima.... "
