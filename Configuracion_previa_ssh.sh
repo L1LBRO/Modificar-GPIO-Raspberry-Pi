@@ -69,13 +69,45 @@
   exit 1
   fi
 
+  echo ""
+  echo " Instalando los últimos paquetes necesarios..."
+  echo ""
+
+  # Paquete necesario para la conexión ssh mediante python
   
+  cd ~
+  git clone https://github.com/WiringPi/WiringPi.git
+  cd WiringPi
+  ./build
 
+  if [ $? -eq 0 ]; then
+    echo "Paquete WiringPi instalado correctamente."
+  else
+    echo "Hubo un error al instalar el paquete WiringPi."
+  exit 1
+  fi
+
+  echo ""
+  echo " Versión de GPIO"
+  echo ""
   
+  gpio -v
 
+  echo ""
+  echo " Instalando Paramiko.... "
+  echo ""
 
+  sudo apt install pyhton3-paramiko -y 
 
-
+  if [ $? -eq 0 ]; then
+    echo "Paquete Paramiko instalado correctamente."
+  else
+    echo "Hubo un error al instalar el paquete Paramiko."
+  exit 1
+  fi
+  
+  curl -sL 
+    
 
 
 
