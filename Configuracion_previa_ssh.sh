@@ -62,7 +62,7 @@
 
   sudo apt install sshpass -y 
 
-  
+  sudo chmod 644 "$vKey_Name.pub"
   sudo sshpass -p "$vPassp" ssh-copy-id -i "$vKey_Name.pub" "$vUser@$vIpRaspberry"
   
   if [ $? -eq 0 ]; then
