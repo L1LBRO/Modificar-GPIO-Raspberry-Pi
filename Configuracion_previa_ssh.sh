@@ -19,7 +19,9 @@ echo ""
 
 # Verificación de la cantidad de parámetros
 if [ $# -ne 5 ]; then
+    echo "" 
     echo "Uso: $0 -s <IP> <Passphrase> <Usuario> <Pin Gpio> <RaspberryPass>"
+    echo ""
     exit 1
 fi
 
@@ -47,9 +49,13 @@ fi
 ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$vPassp"
 
 if [ $? -eq 0 ]; then
+    echo ""
     echo "Clave SSH generada exitosamente en $vKey_Name."
+    echo ""
 else
+    echo ""
     echo "Hubo un error al generar la clave SSH."
+    echo ""
     exit 1
 fi
 
@@ -68,9 +74,13 @@ echo "Enviando la clave SSH con ssh-copy-id..."
 sshpass -p "$vRaspPass" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
 
 if [ $? -eq 0 ]; then
+    echo ""
     echo "Claves enviadas correctamente."
+    echo ""
 else
+    echo ""
     echo "Hubo un error al enviar la clave SSH."
+    echo ""
     exit 1
 fi
 
@@ -85,9 +95,13 @@ cd WiringPi
 ./build
 
 if [ $? -eq 0 ]; then
+    echo ""
     echo "Paquete WiringPi instalado correctamente."
+    echo ""
 else
+    echo ""
     echo "Hubo un error al instalar el paquete WiringPi."
+    echo ""
     exit 1
 fi
 
@@ -104,11 +118,15 @@ echo ""
 sudo apt install python3-paramiko -y
 
 if [ $? -eq 0 ]; then
+    echo ""
     echo "Paquete Paramiko instalado correctamente."
+    echo ""
 else
+    echo ""
     echo "Hubo un error al instalar el paquete Paramiko."
+    echo ""
     exit 1
 fi
 
 # Llamada al script Python para modificar el GPIO
-curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - "$vIpRaspberry" "$vPassp" "$vRaspPass" "$vUser" "$vGpio"
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - "$vIpRaspberry" "$vKey_Name" "$vPassp" "$vUser" "$vGpio"
