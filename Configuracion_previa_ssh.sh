@@ -45,10 +45,10 @@
   fi
 
 
-  ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser"@$vIpRaspberry -N "$PASSPHRASE"
+  ssh-keygen -t rsa -b 4096 -f $vKey_Name -C $vUser@$vIpRaspberry -N $PASSPHRASE
 
   if [ $? -eq 0 ]; then
-    echo "Clave SSH generada exitosamente en "$vKey_Name"."
+    echo "Clave SSH generada exitosamente en $vKey_Name."
   else
     echo "Hubo un error al generar la clave SSH."
   exit 1
@@ -63,7 +63,7 @@
   sudo apt install sshpass -y 
 
   
-  sudo sshpass -p "$vPassp" ssh-copy-id -i "$vKey_Name" "$vUser"@$vIpRaspberry
+  sudo sshpass -p $vPassp ssh-copy-id -i $vKey_Name $vUser@$vIpRaspberry
   
   if [ $? -eq 0 ]; then
     echo "Claves enviadas correctamente."
@@ -109,7 +109,7 @@
   exit 1
   fi
   
-  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - "$vIpRaspberry" "$vPassp" "$vUser" "$vGpio" "$vKey_Name"
+  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser $vGpio $vKey_Name
     
 
 
