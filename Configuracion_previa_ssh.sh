@@ -20,7 +20,7 @@ echo ""
 # Verificación de la cantidad de parámetros
 if [ $# -ne 5 ]; then
     echo "" 
-    echo "Uso: $0 <IP> <Passphrase> <Usuario> <Pin Gpio> <RaspberryPass>"
+    echo "Uso: $0 <IP> <Passphrase> <Usuario> <Entrada %IX0.x> <RaspberryPass>"
     echo ""
     exit 1
 fi
