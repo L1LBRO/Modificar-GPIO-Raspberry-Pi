@@ -4,7 +4,7 @@
 
 # Ejecución del Script
 
-  # curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | bash -s
+  # curl -sL | bash -s
 
 # Definir constantes de color
   cColorAzul='\033[0;34m'
@@ -15,117 +15,101 @@
     #echo "$(tput setaf 1)Mensaje en color rojo. $(tput sgr 0)"
   cFinColor='\033[0m'
 
-    echo ""
-    echo -e "${cColorAzulClaro}  Iniciando el script de modificación del GPIO de la Raspberry (x)...${cFinColor}"
-    echo ""
+echo ""
+echo -e "${cColorAzulClaro}  Iniciando el script de modificación del GPIO de la Raspberry (x)...${cFinColor}"
+echo ""
 
-  
-  if [ $# -ne 4 ]; then
-    echo "Uso: $0  -s <IP> <Passphrase> <Usuario> <Pin Gpio>"
+if [ $# -ne 4 ]; then
+  echo "Uso: $0  -s <IP> <Passphrase> <Usuario> <Pin Gpio>"
   exit 1
-  fi
+fi
 
-  # Parámetros
-  vIpRaspberry = $1
-  vPassp = $2 
-  vUser = $3
-  vGpio = $4
-  # Generación de claves ssh
-  echo ""
-  echo " Generando las claves ssh para conectarse a la Raspberry.... "
-  echo ""
+# Parámetros
+vIpRaspberry=$1
+vPassp=$2
+vUser=$3
+vGpio=$4
+# Generación de claves ssh
+echo ""
+echo " Generando las claves ssh para conectarse a la Raspberry.... "
+echo ""
 
+# Archivo de las claves
+vKey_Name="${HOME}/.ssh/id_rsa"
 
-  # Archivo de las claves
-  vKey_Name="${HOME}/.ssh/id_rsa"
-  
-  if [ -f "$vKey_Name" ]; then
-    rm -f "$vKey_Name"
+# Verificar si ya existe una clave, si es así, eliminarla
+if [ -f "$vKey_Name" ]; then
+  rm -f "$vKey_Name"
+  echo "Clave SSH existente eliminada."
+fi
+
+# Generación de la clave SSH
+ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$vPassp"
+
+if [ $? -eq 0 ]; then
+  echo "Clave SSH generada exitosamente en $vKey_Name."
+else
+  echo "Hubo un error al generar la clave SSH."
   exit 1
-  fi
+fi
 
+echo ""
+echo " Enviando las claves SSH a la máquina victima.... "
+echo ""
 
-  ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$vPassp"
+# Instalación de sshpass
+sudo apt install sshpass -y
 
-  if [ $? -eq 0 ]; then
-    echo "Clave SSH generada exitosamente en "$vKey_Name"."
-  else
-    echo "Hubo un error al generar la clave SSH."
+# Cambiar permisos de la clave pública
+sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
+
+# Enviar la clave SSH utilizando sshpass
+sudo sshpass -p "$vPassp" ssh-copy-id "$vUser@$vIpRaspberry"
+
+if [ $? -eq 0 ]; then
+  echo "Claves enviadas correctamente."
+else
+  echo "Hubo un error al enviar la clave SSH."
   exit 1
-  fi
+fi
 
-  
+echo ""
+echo " Instalando los últimos paquetes necesarios..."
+echo ""
 
-  echo ""
-  echo " Enviando las claves SSH a la máquina victima.... "
-  echo ""
+# Paquete necesario para la conexión ssh mediante python
+cd ~
+git clone https://github.com/WiringPi/WiringPi.git
+cd WiringPi
+./build
 
-  sudo apt install sshpass -y 
-
-  sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
-  
-  sudo sshpass -p "$vPassp" ssh-copy-id -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
-  
-  if [ $? -eq 0 ]; then
-    echo "Claves enviadas correctamente."
-  else
-    echo "Hubo un error al enviar la clave SSH."
+if [ $? -eq 0 ]; then
+  echo "Paquete WiringPi instalado correctamente."
+else
+  echo "Hubo un error al instalar el paquete WiringPi."
   exit 1
-  fi
+fi
 
-  echo ""
-  echo " Instalando los últimos paquetes necesarios..."
-  echo ""
+echo ""
+echo " Versión de GPIO"
+echo ""
 
-  # Paquete necesario para la conexión ssh mediante python
-  
-  cd ~
-  git clone https://github.com/WiringPi/WiringPi.git
-  cd WiringPi
-  ./build
+# Verificar la versión de GPIO
+gpio -v
 
-  if [ $? -eq 0 ]; then
-    echo "Paquete WiringPi instalado correctamente."
-  else
-    echo "Hubo un error al instalar el paquete WiringPi."
+echo ""
+echo " Instalando Paramiko.... "
+echo ""
+
+# Instalar Paramiko
+sudo apt install python3-paramiko -y
+
+if [ $? -eq 0 ]; then
+  echo "Paquete Paramiko instalado correctamente."
+else
+  echo "Hubo un error al instalar el paquete Paramiko."
   exit 1
-  fi
+fi
 
-  echo ""
-  echo " Versión de GPIO"
-  echo ""
-  
-  gpio -v
-
-  echo ""
-  echo " Instalando Paramiko.... "
-  echo ""
-
-  sudo apt install pyhton3-paramiko -y 
-
-  if [ $? -eq 0 ]; then
-    echo "Paquete Paramiko instalado correctamente."
-  else
-    echo "Hubo un error al instalar el paquete Paramiko."
-  exit 1
-  fi
-  
-  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser $vGpio $vKey_Name
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+# Ejecutar el script Python para modificar el GPIO
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser $vGpio $vKey_Name
