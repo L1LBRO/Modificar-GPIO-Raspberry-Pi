@@ -43,6 +43,8 @@
     rm -f $vKey_Name
   exit 1
   fi
+
+  sudo chmod 600 vKey_Name
   
   ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$PASSPHRASE"
 
@@ -60,8 +62,7 @@
 
   sudo apt install sshpass -y 
 
-  
-  sudo sshpass -p $vPassp ssh-copy-id $vKey_Name $vUser@$vIpRaspberry
+  sudo sshpass -p $vPassp ssh-copy-id -i $vKey_Name $vUser@$vIpRaspberry
 
   if [ $? -eq 0 ]; then
     echo "Claves enviadas correctamente."
