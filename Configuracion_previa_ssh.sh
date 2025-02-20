@@ -2,6 +2,10 @@
 
 # Este script es la configuración previa antes de realizar el ataque simulado de modificar el GPIO de la Raspberry Pi
 
+# Ejecución del script
+
+# curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | sudo bash -s
+
 # Definir constantes de color
 cColorAzul='\033[0;34m'
 cColorAzulClaro='\033[1;34m'
