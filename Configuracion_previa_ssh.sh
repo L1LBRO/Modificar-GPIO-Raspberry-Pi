@@ -64,7 +64,7 @@ sudo apt install sshpass -y
 sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
 
 # Enviar la clave SSH utilizando sshpass
-sudo sshpass -p "$vPassp" ssh-copy-id "$vUser@$vIpRaspberry"
+sudo ssh-copy-id -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
 
 if [ $? -eq 0 ]; then
   echo "Claves enviadas correctamente."
