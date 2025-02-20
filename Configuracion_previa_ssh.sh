@@ -106,7 +106,7 @@
   exit 1
   fi
   
-  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - 
+  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser
     
 
 
