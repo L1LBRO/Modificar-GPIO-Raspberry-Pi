@@ -71,7 +71,7 @@ sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
 
 # Usar sshpass para copiar la clave SSH con la contraseña que se pasa como argumento
 echo "Enviando la clave SSH con ssh-copy-id..."
-sshpass -p "$vRaspPass" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
+sshpass -p $vRaspPass ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
 
 if [ $? -eq 0 ]; then
     echo ""
