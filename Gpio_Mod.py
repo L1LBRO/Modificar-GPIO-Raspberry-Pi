@@ -31,23 +31,20 @@ def main():
     usuario = sys.argv[4]
     gpio_pin = sys.argv[5]
 
-    # Configurar GPIO como salida y ponerlo en 1
-    comando = f"gpio -g mode {gpio_pin} out && gpio -g write {gpio_pin} 1"
+    print(f"Conectando a {ip_raspberry} para mantener GPIO {gpio_pin} en 1...")
 
-    print(f"Conectando a {ip_raspberry} para forzar GPIO {gpio_pin} a 1...")
-
-    salida, error = ejecutar_comando_ssh(ip_raspberry, usuario, clave_ssh, clave_ssh_password, comando)
-
-    if error:
-        print(f"Error: {error}")
-        sys.exit(1)
-    else:
-        print(f"GPIO {gpio_pin} en {ip_raspberry} forzado a 1.")
-
-    # Mantener la ejecución sin modificar el estado
+    # Bucle infinito para mantener siempre el GPIO en 1
     try:
         while True:
-            time.sleep(5)  # Mantiene el script corriendo sin modificar el GPIO
+            comando = f"gpio -g write {gpio_pin} 1"
+            salida, error = ejecutar_comando_ssh(ip_raspberry, usuario, clave_ssh, clave_ssh_password, comando)
+
+            if error:
+                print(f"Error al escribir en GPIO {gpio_pin}: {error}")
+            else:
+                print(f"GPIO {gpio_pin} mantenido en 1.")
+
+            time.sleep(5)  # Repite cada 5 segundos para evitar consumo excesivo de CPU
     except KeyboardInterrupt:
         print("\nSaliendo...")
 
