@@ -21,7 +21,7 @@
 
   
   if [ $# -ne 4 ]; then
-    echo "Uso: $0 <IP> <Passphrase> <Usuario>"
+    echo "Uso: $0 <IP> <Passphrase> <Usuario> <Pin Gpio>"
   exit 1
   fi
 
@@ -29,6 +29,7 @@
   vIpRaspberry = $1
   vPassp = $2 
   vUser = $3
+  vGpio = $4
   # Generación de claves ssh
   echo ""
   echo " Generando las claves ssh para conectarse a la Raspberry.... "
@@ -106,7 +107,7 @@
   exit 1
   fi
   
-  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser
+  curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser $vGpio
     
 
 
