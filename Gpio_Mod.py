@@ -2,6 +2,16 @@ import paramiko
 import sys
 import time
 
+# Mapeo de entradas PLC a pines GPIO en Raspberry Pi
+MAPEO_PLC_A_GPIO = {
+    "%IX0.0": 17,
+    "%IX0.1": 18,
+    "%IX0.2": 27,
+    "%IX0.3": 22,
+    "%IX0.4": 23,
+    "%IX0.5": 24,
+}
+
 def ejecutar_comando_ssh(host, usuario, clave_ssh, clave_ssh_password, comando):
     try:
         cliente = paramiko.SSHClient()
@@ -22,16 +32,23 @@ def ejecutar_comando_ssh(host, usuario, clave_ssh, clave_ssh_password, comando):
 
 def main():
     if len(sys.argv) != 6:
-        print("Uso: python script.py <IP_Raspberry> <Clave_ssh> <Clave_ssh_password> <Usuario> <Gpio_Pin>")
+        print("Uso: python script.py <IP_Raspberry> <Clave_ssh> <Clave_ssh_password> <Usuario> <Entrada_PLC>")
         sys.exit(1)
 
     ip_raspberry = sys.argv[1]
     clave_ssh = sys.argv[2]
     clave_ssh_password = sys.argv[3]
     usuario = sys.argv[4]
-    gpio_pin = sys.argv[5]
+    entrada_plc = sys.argv[5]  # %IX0.4 por ejemplo
 
-    print(f"Conectando a {ip_raspberry} para mantener GPIO {gpio_pin} en 1...")
+    # Verificar si la entrada PLC existe en el mapeo
+    if entrada_plc not in MAPEO_PLC_A_GPIO:
+        print(f"Error: La entrada PLC '{entrada_plc}' no está mapeada a un GPIO.")
+        sys.exit(1)
+
+    gpio_pin = MAPEO_PLC_A_GPIO[entrada_plc]
+
+    print(f"Conectando a {ip_raspberry} para mantener la entrada {entrada_plc} (GPIO {gpio_pin}) en 1...")
 
     # Bucle infinito para mantener siempre el GPIO en 1
     try:
@@ -42,7 +59,7 @@ def main():
             if error:
                 print(f"Error al escribir en GPIO {gpio_pin}: {error}")
             else:
-                print(f"GPIO {gpio_pin} mantenido en 1.")
+                print(f"GPIO {gpio_pin} (Entrada {entrada_plc}) mantenido en 1.")
 
             time.sleep(5)  # Repite cada 5 segundos para evitar consumo excesivo de CPU
     except KeyboardInterrupt:
