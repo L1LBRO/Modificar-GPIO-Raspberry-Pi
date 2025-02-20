@@ -45,7 +45,7 @@
   fi
 
 
-  ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$PASSPHRASE"
+  ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$vPassp"
 
   if [ $? -eq 0 ]; then
     echo "Clave SSH generada exitosamente en "$vKey_Name"."
