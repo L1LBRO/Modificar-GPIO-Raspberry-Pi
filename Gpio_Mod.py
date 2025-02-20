@@ -35,7 +35,7 @@ def main():
     gpio_pin = sys.argv[5]
 
     # Comando inicial para configurar el GPIO y ponerlo en 1
-    comando = f"gpio mode {gpio_pin} out && gpio write {gpio_pin} 1"
+    comando = f"gpio -g mode {gpio_pin} out && gpio write {gpio_pin} 1"
 
     print(f"Conectando a {ip_raspberry} para forzar GPIO {gpio_pin} a 1...")
 
