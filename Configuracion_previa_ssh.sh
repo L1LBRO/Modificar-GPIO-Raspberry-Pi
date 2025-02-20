@@ -37,18 +37,18 @@
 
 
   # Archivo de las claves
-  vKey_Name="${HOME}/.ssh/id_rsa"
+  vKey_Name="${HOME}/.ssh/id_rsa.pub"
   
   if [ -f "$vKey_Name" ]; then
-    rm -f $vKey_Name
+    rm -f "$vKey_Name"
   exit 1
   fi
 
 
-  ssh-keygen -t rsa -b 4096 -f $vKey_Name -C $vUser@$vIpRaspberry -N $PASSPHRASE
+  ssh-keygen -t rsa -b 4096 -f "$vKey_Name" -C "$vUser@$vIpRaspberry" -N "$PASSPHRASE"
 
   if [ $? -eq 0 ]; then
-    echo "Clave SSH generada exitosamente en $vKey_Name."
+    echo "Clave SSH generada exitosamente en "$vKey_Name"."
   else
     echo "Hubo un error al generar la clave SSH."
   exit 1
@@ -63,7 +63,7 @@
   sudo apt install sshpass -y 
 
   sudo chmod 644 "$vKey_Name.pub"
-  sudo sshpass -p "$vPassp" ssh-copy-id -i "$vKey_Name.pub" "$vUser@$vIpRaspberry"
+  sudo sshpass -p "$vPassp" ssh-copy-id -i "$vKey_Name" "$vUser@$vIpRaspberry"
   
   if [ $? -eq 0 ]; then
     echo "Claves enviadas correctamente."
