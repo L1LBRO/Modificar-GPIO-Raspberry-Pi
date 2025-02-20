@@ -4,7 +4,7 @@
 
 # Ejecución del Script
 
-  # curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | sudo bash 
+  # curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | sudo bash -s
 
 # Definir constantes de color
   cColorAzul='\033[0;34m'
@@ -21,7 +21,7 @@
 
   
   if [ $# -ne 4 ]; then
-    echo "Uso: $0 <IP> <Passphrase> <Usuario> <Pin Gpio>"
+    echo "Uso: $0  -s <IP> <Passphrase> <Usuario> <Pin Gpio>"
   exit 1
   fi
 
