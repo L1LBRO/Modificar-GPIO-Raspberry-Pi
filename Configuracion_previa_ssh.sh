@@ -4,7 +4,7 @@
 
 # Ejecución del Script
 
-  # curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | sudo bash -s
+  # curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | bash -s
 
 # Definir constantes de color
   cColorAzul='\033[0;34m'
