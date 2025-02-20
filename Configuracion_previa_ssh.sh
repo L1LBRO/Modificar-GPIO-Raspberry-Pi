@@ -17,8 +17,9 @@ echo ""
 echo -e "${cColorAzulClaro} Iniciando el script de modificación del GPIO de la Raspberry (x)...${cFinColor}"
 echo ""
 
-if [ $# -ne 4 ]; then
-    echo "Uso: $0 -s <IP> <Passphrase> <Usuario> <Pin Gpio>"
+# Verificación de la cantidad de parámetros
+if [ $# -ne 5 ]; then
+    echo "Uso: $0 -s <IP> <Passphrase> <Usuario> <Pin Gpio> <RaspberryPass>"
     exit 1
 fi
 
@@ -27,6 +28,7 @@ vIpRaspberry=$1
 vPassp=$2
 vUser=$3
 vGpio=$4
+vRaspberryPass=$5 
 
 # Generación de claves ssh
 echo ""
@@ -61,11 +63,9 @@ sudo apt install sshpass -y
 # Asegurarse de que los permisos de la clave pública son correctos
 sudo chmod 644 "${HOME}/.ssh/id_rsa.pub"
 
-echo "Realizando prueba de conexión SSH sin contraseña..."
-sshpass -p "$vPassp" ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$vUser@$vIpRaspberry" exit
-
-# Usar sshpass para copiar la clave SSH sin la necesidad de intervención manual
-sudo sshpass -p "$vPassp" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
+# Usar sshpass para copiar la clave SSH con la contraseña que se pasa como argumento
+echo "Enviando la clave SSH con ssh-copy-id..."
+sshpass -p "$vRaspberryPass" ssh-copy-id -o StrictHostKeyChecking=no -i "${HOME}/.ssh/id_rsa.pub" "$vUser@$vIpRaspberry"
 
 if [ $? -eq 0 ]; then
     echo "Claves enviadas correctamente."
@@ -111,4 +111,4 @@ else
 fi
 
 # Llamada al script Python para modificar el GPIO
-curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vPassp $vUser $vGpio $vKey_Name
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod.py | python3 - $vIpRaspberry $vUser $vGpio $vKey_Name
