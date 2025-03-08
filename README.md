@@ -1,6 +1,6 @@
 # Raspberry Pi GPIO Control Scripts
 
-Este repositorio contiene un par de scripts en Python y Bash para controlar los pines GPIO de una Raspberry Pi. Puedes usar estos scripts para encender o apagar un dispositivo conectado a un pin GPIO o para realizar pruebas rápidas de control de hardware.
+Este repositorio contiene un conjunto de scripts en Bash y Python diseñados para modificar los pines GPIO de una Raspberry Pi mediante una conexión SSH, permitiendo controlar dispositivos de forma remota o simular ataques de manipulación.
 
 ## Requisitos
 
