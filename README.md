@@ -85,6 +85,10 @@ Este repositorio contiene un conjunto de scripts en Bash y Python diseñados par
 
   Si deseas mejorar este proyecto, haz un fork del repositorio y envía un pull request con tus mejoras.
 
+  ## Nota
+
+  Este proyecto tiene fines educativos y de auditoría en entornos controlados. No debe utilizarse con fines malintencionados ni en sistemas en producción sin autorización.
+
   ## Licencia
 
   Este proyecto está bajo la licencia MIT.
