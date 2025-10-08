@@ -53,7 +53,7 @@ Before running the scripts, make sure to:
 To automatically set up everything, run the following command from another Linux machine:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/main/Configuracion_previa_ssh.sh \
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modify-GPIO-Raspberry-Pi/refs/heads/main/ssh_preconfig.sh \
 | sudo bash -s <Raspberry_IP> <Passphrase> <User> <PLC_Input> <Raspberry_Password>
 ````
 Where
