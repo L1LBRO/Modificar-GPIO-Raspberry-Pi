@@ -1,101 +1,57 @@
 # Raspberry Pi GPIO Control Scripts
 
-Este repositorio contiene un conjunto de scripts en Bash y Python diseñados para modificar los pines GPIO de una Raspberry Pi mediante una conexión SSH, permitiendo controlar dispositivos de forma remota o simular ataques de manipulación.
+This repository contains a collection of Bash and Python scripts designed to modify the GPIO pins of a Raspberry Pi via SSH, allowing remote device control or simulation of manipulation attacks.
 
-  ## Descripción del Proyecto
+## Project Description
 
-  ### El proyecto incluye:
-  
-  #### Un script en Bash (Configuracion_previa_ssh.sh):
-    
-    Configura la Raspberry Pi.
-    Genera claves SSH para autenticación sin contraseña.
-    Envía las claves SSH a la Raspberry Pi.
-    Instala dependencias necesarias (WiringPi, Paramiko).
-    Ejecuta el script en Python encargado de modificar los GPIOs.
+### The project includes:
 
-  #### Un script en Python (Gpio_Mod_unica_salida.py):
+#### A Bash script (`Configuracion_previa_ssh.sh`):
 
-    Se conecta a la Raspberry Pi vía SSH.
-    Modifica los pines GPIO en función de una entrada de PLC especificada.
-    Mantiene la salida en estado alto (1) de manera continua.
+- Configures the Raspberry Pi.
+- Generates SSH keys for passwordless authentication.
+- Transfers the SSH keys to the Raspberry Pi.
+- Installs required dependencies (WiringPi, Paramiko).
+- Executes the Python script responsible for GPIO modification.
 
-  ## Requisitos
+#### A Python script (`Gpio_Mod_unica_salida.py`):
 
-  ### Hardware:
+- Connects to the Raspberry Pi via SSH.
+- Modifies GPIO pins based on a specified PLC input.
+- Keeps the output in a high state (1) continuously.
 
-    Raspberry Pi (cualquier modelo con GPIO funcional)
-    Dispositivo controlado (ejemplo: LED, relay, motor, etc.)
+## Requirements
 
-  ### Software y dependencias:
-    
-    Raspbian OS (o cualquier distribución de Linux compatible)
-    Python 3.x
-  
-  #### Paquetes necesarios:
+### Hardware
 
-    paramiko (para conexión SSH en Python)
-    sshpass (para automatizar la autenticación SSH en Bash)
-    WiringPi (para manipulación de GPIOs en Raspberry Pi)
+- Raspberry Pi (any model with functional GPIO)
+- Controlled device (e.g., LED, relay, motor, etc.)
 
-  ## Uso
+### Software and dependencies
 
-  ### Configuración previa en la Raspberry Pi
+- Raspbian OS (or any compatible Linux distribution)
+- Python 3.x
 
-  Antes de ejecutar los scripts, asegúrate de:
+#### Required packages
 
-    Tener habilitado el acceso SSH en la Raspberry Pi.
-    Crear un usuario con permisos para acceder vía SSH.
-    Configurar los permisos adecuados para los pines GPIO.
+- `paramiko` (for SSH connection in Python)
+- `sshpass` (for automating SSH authentication in Bash)
+- `WiringPi` (for GPIO manipulation on Raspberry Pi)
 
-  ### Ejecución del Script de Configuración Previa
+## Usage
 
-  Para ejecutar el script en modo automático, puedes correr el siguiente comando desde otra máquina Linux:
+### Pre-configuration on the Raspberry Pi
 
-      curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/main/Configuracion_previa_ssh.sh | sudo bash -s <IP_Raspberry> <Passphrase> <Usuario> <Entrada_PLC> <RaspberryPass>
-      
-  Donde
+Before running the scripts, make sure to:
 
-    <IP_Raspberry> → Dirección IP de la Raspberry Pi.
-    <Passphrase> → Frase de seguridad para la clave SSH.
-    <Usuario> → Usuario de la Raspberry Pi.
-    <Entrada_PLC> → Entrada PLC asociada al GPIO (Ej: %IX0.4).
-    <RaspberryPass> → Contraseña del usuario en la Raspberry Pi.
+- Enable SSH access on the Raspberry Pi.
+- Create a user with SSH access permissions.
+- Configure the proper GPIO access permissions.
 
-  ## Mapeo de Entradas PLC a GPIOs
-      
-  El script de Python utiliza un mapeo predefinido para asociar entradas de un PLC con los pines GPIO de la Raspberry Pi:
-  
-  | Entrada PLC | GPIO en Raspberry |
-  |     :---:   |       :---:       |
-  |  %IX0.0     |  GPIO 17 |
-  |  %IX0.1     |  GPIO 18 |
-  |  %IX0.2     |  GPIO 27 |
-  |  %IX0.3     |  GPIO 22 |
-  |  %IX0.4     |  GPIO 23 |
-  |  %IX0.5     |  GPIO 24 |
+### Running the Pre-Configuration Script
 
-  ## Notas
+To automatically set up everything, run the following command from another Linux machine:
 
-    El script mantiene el estado del GPIO en 1 indefinidamente, con una verificación cada 5 segundos.
-    Para detener el proceso, usa Ctrl + C.
-    Se recomienda probar con un LED antes de conectar dispositivos de mayor potencia.
-
-  ## Contribuciones
-
-  Si deseas mejorar este proyecto, haz un fork del repositorio y envía un pull request con tus mejoras.
-
-  ## Nota
-
-  Este proyecto tiene fines educativos y de auditoría en entornos controlados. No debe utilizarse con fines malintencionados ni en sistemas en producción sin autorización.
-
-  ## Licencia
-
-  Este proyecto está bajo la licencia MIT.
-
-
-
-
-
-
-
+```bash
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/main/Configuracion_previa_ssh.sh \
+| sudo bash -s <Raspberry_IP> <Passphrase> <User> <PLC_Input> <Raspberry_Password>
