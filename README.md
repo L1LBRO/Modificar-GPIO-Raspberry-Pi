@@ -65,3 +65,34 @@ Where
 | `<User>`               | Raspberry Pi username                               |
 | `<PLC_Input>`          | PLC input associated with the GPIO (e.g., `%IX0.4`) |
 | `<Raspberry_Password>` | Password of the Raspberry Pi user                   |
+
+## PLC Input to GPIO Mapping
+
+| PLC Input | Raspberry GPIO |
+| :-------: | :------------: |
+|   %IX0.0  |     GPIO 17    |
+|   %IX0.1  |     GPIO 18    |
+|   %IX0.2  |     GPIO 27    |
+|   %IX0.3  |     GPIO 22    |
+|   %IX0.4  |     GPIO 23    |
+|   %IX0.5  |     GPIO 24    |
+
+## Notes
+
+The script keeps the GPIO state set to 1 indefinitely, checking every 5 seconds.
+To stop the process, press Ctrl + C.
+It is recommended to test with an LED before connecting higher-power devices.
+
+## Contributions
+
+If you want to improve this project, fork the repository and submit a pull request with your enhancements.
+
+## Disclaimer
+
+This project is intended for educational and auditing purposes in controlled environments only.
+It must not be used for malicious activities or in production systems without explicit authorization.
+
+## License
+
+This project is licensed under the MIT License
+
