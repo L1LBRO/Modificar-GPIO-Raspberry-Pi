@@ -130,4 +130,4 @@ fi
 
 # Call the Python script to modify the GPIO
 echo "Running Python script to modify GPIO..."
-curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod_unica_salida.py | python3 - "$vIpRaspberry" "$vKey_Name" "$vPassp" "$vUser" "$vGpio"
+curl -sL https://raw.githubusercontent.com/L1LBRO/Modify-GPIO-Raspberry-Pi/refs/heads/main/Gpio_Mod_exit.py | python3 - "$vIpRaspberry" "$vKey_Name" "$vPassp" "$vUser" "$vGpio"
