@@ -6,7 +6,7 @@ This repository contains a collection of Bash and Python scripts designed to mod
 
 ### The project includes:
 
-#### A Bash script (`Configuracion_previa_ssh.sh`):
+#### A Bash script (`ssh_preconfig.sh`):
 
 - Configures the Raspberry Pi.
 - Generates SSH keys for passwordless authentication.
@@ -14,7 +14,7 @@ This repository contains a collection of Bash and Python scripts designed to mod
 - Installs required dependencies (WiringPi, Paramiko).
 - Executes the Python script responsible for GPIO modification.
 
-#### A Python script (`Gpio_Mod_unica_salida.py`):
+#### A Python script (`Gpio_Mod_exit.py`):
 
 - Connects to the Raspberry Pi via SSH.
 - Modifies GPIO pins based on a specified PLC input.
