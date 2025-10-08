@@ -3,7 +3,7 @@
 # This script is the pre-configuration before performing the simulated attack to modify the Raspberry Pi GPIO
 
 # Script execution example:
-# curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/refs/heads/main/Configuracion_previa_ssh.sh | sudo bash -s
+# curl -sL https://raw.githubusercontent.com/L1LBRO/Modify-GPIO-Raspberry-Pi/refs/heads/main/ssh_preconfig.sh | sudo bash -s
 
 # Define color constants
 colorBlue='\033[0;34m'
