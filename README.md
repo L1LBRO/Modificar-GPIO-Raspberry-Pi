@@ -55,3 +55,13 @@ To automatically set up everything, run the following command from another Linux
 ```bash
 curl -sL https://raw.githubusercontent.com/L1LBRO/Modificar-GPIO-Raspberry-Pi/main/Configuracion_previa_ssh.sh \
 | sudo bash -s <Raspberry_IP> <Passphrase> <User> <PLC_Input> <Raspberry_Password>
+````
+Where
+
+| Parameter              | Description                                         |
+| ---------------------- | --------------------------------------------------- |
+| `<Raspberry_IP>`       | IP address of the Raspberry Pi                      |
+| `<Passphrase>`         | Security phrase for the SSH key                     |
+| `<User>`               | Raspberry Pi username                               |
+| `<PLC_Input>`          | PLC input associated with the GPIO (e.g., `%IX0.4`) |
+| `<Raspberry_Password>` | Password of the Raspberry Pi user                   |
